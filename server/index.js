@@ -1,9 +1,29 @@
 const express = require('express') ;
-const bodyParser = require('body-parser') ;
-const app = express() ;
-app.use(express.json()) ; 
+const mysql = require("mysql") ;
 const cors = require('cors') ;
-const mysql = require("mysql")
+const bodyParser = require('body-parser') ;
+const cookieparser = require('cookie-parser') ;
+const session = require('express-session') ;
+ 
+const app = express() ;
+
+const bcrypt = require('bcrypt') ;
+const saltRounds = 10 ;
+app.use(express.json()) ; 
+
+app.use(cookieparser());
+app.use(bodyParser.urlencoded({extended:true})) ;
+app.use(session({
+    key: "userID",
+    secret: "SECRET KEY",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 60*60 *24 ,
+    },
+
+}
+))
 
 const  db  = {
     host: "localhost",
@@ -13,31 +33,57 @@ const  db  = {
     port: 3306,
     insecureAuth : true
 };      
-app.use(cors()) ;
+app.use(cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST"],
+    credentials: true
+})) ;
 
 const con = mysql.createConnection(db);
 
-app.use(bodyParser.urlencoded({extended:true})) ;
 
 app.post("/register",(req,res)=>{
     const Username = req.body.Username ;
     const Password = req.body.Password ;
     const sqlInsert = "INSERT INTO `users` (Username,Password) VALUES (?, ?)" ;
-    con.query(sqlInsert,[Username,Password],(err,result)=>{
+    bcrypt.hash(Password,saltRounds,(err, hash)=>{
+        if(err){
+            console.log(err);
+        }
+        con.query(sqlInsert,[Username,hash],(err,result)=>{
         console.log(err) ;
     }) 
+    })
+    
 
 }) 
 
+app.get ("/login", (req,res)=>{
+    if(req.session.user){
+        res.send({loggedIn: true, user: req.session.user}) ;
+    }else{
+        res.send({loggedIn: false}) ;
+    }
+})
 app.post("/login",(req,res)=>{
     const Username = req.body.Username ;
     const Password = req.body.Password ;
-    const sqlInsert = "SELECT * FROM `users` WHERE Username = ? AND Password = ? " ;
-    con.query(sqlInsert,[Username,Password],(err,result)=>{
+    const sqlInsert = "SELECT * FROM `users` WHERE Username = ?  " ;
+    con.query(sqlInsert,Username,(err,result)=>{
         if (err) {res.send({err: err}) ;}
-        if (result.length > 0){res.send(result)}
+        if (result.length > 0){
+            bcrypt.compare(Password, result[0].Password, (error, response)=>{
+                if(response){
+                    req.session.user = result ;
+                    console.log(req.session.user);
+                    res.send(result) ;
+                }else{
+                    res.send({ "message": "wrong combination"}) ;
+                }
+            })
+        }
         else {
-            res.send({ "message": "wrong combination"}) ;
+            res.send({ "message": "User doesn't exist"}) ;
         }
 
         })

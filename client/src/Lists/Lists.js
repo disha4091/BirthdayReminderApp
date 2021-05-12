@@ -1,10 +1,16 @@
 import React from "react" ;
+import {Redirect} from 'react-router-dom' ;
+
 import {useState, useEffect} from "react" ;
 import Axios from "axios" ;
 import '../Styles.css' ;
 
 
-const Lists = () => {
+const Lists = (authorized) => {
+  if(!authorized){
+    return <Redirect to="/"/>
+  }
+
     const [Name,setName] = useState("") ;
     const [DOB, setDOB] = useState("") ;
     const [month, setMonth] = useState("") ;

@@ -1,0 +1,62 @@
+.register {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: max-content;
+  background-color: lavenderblush;
+  text-align-last: center;
+  font-family: cursive;
+  padding: 1.5rem 2rem;
+  box-shadow: lightpink;
+  border-width: 50px;
+  border-color: solid black;
+}
+.register input {
+  box-sizing: border-box;
+  float: right;
+  width: 200px;
+  background-color: rgb(224, 215, 235);
+  border-color: currentColor;
+  border-radius: 5px;
+}
+.register label {
+  float: left;
+}
+
+.register button {
+  border-radius: 5px;
+  background-color: rgb(183, 233, 216);
+  font-family: cursive;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.login {
+  margin-left: auto;
+  margin-right: auto;
+  width: max-content;
+  background-color: lavenderblush;
+  text-align-last: center;
+  font-family: cursive;
+  padding: 1.5rem 2rem;
+  margin-top: 30px;
+}
+.login input {
+  box-sizing: border-box;
+  float: right;
+  width: 200px;
+  background-color: rgb(224, 215, 235);
+  border-color: currentColor;
+  border-radius: 5px;
+}
+.login label {
+  float: left;
+}
+
+.login button {
+  border-radius: 5px;
+  background-color: rgb(183, 233, 216);
+  font-family: cursive;
+  font-size: 20px;
+  cursor: pointer;
+}
