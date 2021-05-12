@@ -1,0 +1,21 @@
+.Reminder {
+  background-color: rgb(235, 207, 218);
+  width: 300px;
+  justify-self: center;
+  font-size: 25px;
+  text-align: center;
+  padding: 5px;
+  font-weight: bolder;
+  margin: auto;
+}
+.person {
+  background-color: rgb(223, 69, 133);
+  padding: 6px;
+  margin: 5px;
+  font-size: 20px;
+  font-weight: normal;
+  text-align: left;
+  border-radius: 5px;
+  color: azure;
+  list-style-type: "🎁 ";
+}

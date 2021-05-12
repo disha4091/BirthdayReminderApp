@@ -1,0 +1,48 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  display: inline-grid;
+  grid-gap: 30px 70px;
+  border-color: currentColor;
+}
+.grid-item {
+  background-color: rgb(235, 206, 235);
+  padding: 20px;
+  width: max-content;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.grid-container button {
+  background-color: transparent;
+  border: transparent;
+  color: rgb(38, 114, 139);
+  cursor: pointer;
+  width: max-content;
+  font-size: 20px;
+}
+.grid-container input {
+  background-color: beige;
+  border-color: currentColor;
+  width: 80px;
+}
+body {
+  background-color: rgb(214, 226, 214);
+  font-family: cursive;
+  top: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.Heading {
+  width: 93%;
+  top: 0;
+  background-color: rgb(248, 236, 221);
+  border-radius: 5px;
+  text-align: center;
+  height: max-content;
+  font-size: 20px;
+}
+
+.Container {
+  width: 75%;
+  margin: auto;
+}
