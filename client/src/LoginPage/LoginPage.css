@@ -60,3 +60,10 @@
   font-size: 20px;
   cursor: pointer;
 }
+
+.currname {
+  z-index: 1;
+  color: blueviolet;
+  margin-top: 0;
+  margin-left: 80%;
+}

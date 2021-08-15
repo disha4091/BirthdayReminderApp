@@ -7,30 +7,39 @@ const Form = () => {
     const [Name,setName] = useState("") ;
     const [DOB, setDOB] = useState("") ;
     const [month, setMonth] = useState("") ;
+    const [Event, setEvent] = useState("") ;
+    const [Description, setDescription] = useState("") ;
     const [DOBList, setDOBList] = useState([]) ;
  
     useEffect(()=>{
         Axios.get('http://localhost:3001/api/get').then((response) =>{
           setDOBList(response.data) ;
         })
-      },[]) ;
+      },[DOBList]) ;
     
     const submitInfo = () =>{
        
         Axios.post('http://localhost:3001/api/insert', {
-            Name:Name,DOB:DOB,month:month,
-        }).then(alert("New Birthday added!"))
+            Name:Name,DOB:DOB,month:month,Event:Event, Description: Description
+        }).then(alert("New Event added!"))
        
-        setDOBList([...DOBList,{Name: Name , DOB: DOB , month:month}]) ;
-        setName("") ; setDOB("") ; setMonth("") ;
+        setDOBList([...DOBList,{Name: Name , DOB: DOB , month:month , Event: Event, Description: Description}]) ;
+        setName("") ; setDOB("") ; setMonth("") ; setEvent("") ; setDescription("") ;
 
       };
     return (
         <div className="Form">
-            <h1>Add new person here !</h1>
-            
+            <h1>Add new event here !</h1>
+            <label>Event</label>
+            <input type="text" value={Event}  onChange={(e)=>{setEvent(e.target.value)}} />
+            <br></br>
+            <br></br>
             <label>Name</label>
             <input type="text" value={Name}  onChange={(e)=>{setName(e.target.value)}} />
+            <br></br>
+            <br></br>
+            <label>Description</label>
+            <input type="text" value={Description}  onChange={(e)=>{setDescription(e.target.value)}} />
             <br></br>
             <br></br>
             <label>Date </label>

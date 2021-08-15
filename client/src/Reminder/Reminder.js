@@ -8,12 +8,11 @@ const Reminder = () => {
     var today = new Date(),
     currDate = today.getDate(),
     currMonth = (today.getMonth() + 1) ;
-    var flag = 0 ;
     useEffect(()=>{
         Axios.get('http://localhost:3001/api/get').then((response) =>{
           setDOBList(response.data) ;
         })
-      },[]) ;
+      },[DOBList]) ;
 
     function filter_dates(event) {
         return (event.DOB == currDate && event.month == currMonth);

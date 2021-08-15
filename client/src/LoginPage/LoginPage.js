@@ -1,56 +1,51 @@
-import React, { useState, useReducer,useEffect } from 'react';
-import { useHistory } from "react-router-dom" ;
+import React, { useState,useContext, useReducer,useEffect } from 'react';
 import Axios from "axios" ;
 import "./LoginPage.css"
-var isLoggedIn = false ;
 
-//import './LoginPage.css'
+import { AuthContext } from '../auth' ;
+
 const LoginPage = () => {
-    let history = useHistory() ;
-    
+    const [user, setUser] = useState() ;
+    const context = useContext(AuthContext) ;
     const [usernameReg,setUsernameReg] = useState('') ;
     const [passwordReg,setPasswordReg] = useState('') ;
 
     const [username,setUsername] = useState('') ;
     const [password,setPassword] = useState('') ;
 
-    const [loginStatus,setLoginStatus] = useState('') ;
+    const [loginStatus,setLoginStatus] = useState(false) ;
 
     Axios.defaults.withCredentials = true ;
 
     const register=()=>{
         Axios.post('http://localhost:3001/register' , {Username: usernameReg, Password: passwordReg})
         .then((response)=>{
-            console.log(response);
+            context.login(response) ;
         }) ;
     } ;
 
-    const login=()=>{
-        Axios.post('http://localhost:3001/login' , {Username: username, Password: password})
+    const loginUser=async e=>{
+        e.preventDefault() ;
+        await Axios.post('http://localhost:3001/login' , {Username: username, Password: password})
         .then((response)=>{
-            if(response.data.message){
-                setLoginStatus(response.data.message) ;
-                isLoggedIn = false ;
+            if(response.data.auth){
+                localStorage.setItem("token", response.data.token) ;
+                setLoginStatus(true) ;
+                console.log(response.data.result[0]) ;
+                context.login(response.data.result[0]) ;
                 
-            }else{
-                setLoginStatus(response.data[0].Username) ;history.push('/') ;
-                isLoggedIn = true ;
-
             }
-            console.log(response.data) ;
-            
         }) ;
+
     } ;
 
-    useEffect(() => {
-        Axios.get("http://localhost:3001/login").then((response)=>{
-            if(response.data.loggedIn == true){
-                setLoginStatus(response.data.user[0].Username) ;
-            }
-                
-        })
-    
-    }, []) ;
+    const userAuthenticated = () => {
+        Axios.get("http://localhost:3001/isUserAuth",{headers:{
+            "x-access-token" : localStorage.getItem("token") 
+        }}).then((response)=>{
+            console.log(response);
+        }) 
+    }
 
     return (
         
@@ -77,17 +72,18 @@ const LoginPage = () => {
                 <label>Password</label>
                 <input type="text" onChange={(e)=>{setPassword(e.target.value)}}/>
                 <br></br><br></br>
-                <button onClick={login}>Login</button>
+                <button onClick={loginUser}>Login</button>
 
             </div>
             
-
-           
-            <h2 className="currname"> {loginStatus} </h2>
+        {loginStatus && (
+            <button onClick={userAuthenticated}>Check</button>
+        )}
+            
         </div>
         
         
     ) ;
 }
-
+//<h2 className="currname"> {loginStatus} </h2>
 export default LoginPage
