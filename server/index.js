@@ -3,7 +3,7 @@ const mysql = require("mysql");
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-
+const Config_details = require('./config') ;
 const app = express();
 var currUser = "";
 const bcrypt = require('bcrypt');
@@ -21,10 +21,10 @@ app.use(session({
 ))
 
 const db = {
-    host: "localhost",
-    user: "root",
-    password: "mySQL@2020",
-    database: "cruddatabase",
+    host: Config_details.host,
+    user: Config_details.user,
+    password: Config_details.password,
+    database: Config_details.database,
     port: 3306,
     insecureAuth: true
 };

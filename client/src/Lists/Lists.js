@@ -15,49 +15,44 @@ const Lists = () => {
     const [newDOB , setNewDOB] = useState("") ;
     const [newMonth , setNewMonth] = useState("") ;
     const [errors, setErrors]= useState("") ;
-    useEffect(()=>{
-      
+    useEffect(()=>{      
         Axios.get('http://localhost:3001/api/get').then((response) =>{
           setList(response.data) ;
         })
       },[List]) ;
     
-      
-    
-      const deleteEvent = (Name1) => {
-        if(window.confirm(`Are you sure you want to delete ${Name1}` )){
-          Axios.delete(`http://localhost:3001/api/delete/${Name1}`) ;
-          setList([...List,{Name: Name , DOB: DOB , month:month, Event: Event, Description: Description}]) ;
-        }
+    const deleteEvent = (Name1) => {
+      if(window.confirm(`Are you sure you want to delete ${Name1}` )){
+        Axios.delete(`http://localhost:3001/api/delete/${Name1}`) ;
+        setList([...List,{Name: Name , DOB: DOB , month:month, Event: Event, Description: Description}]) ;
       }
-    
-      const updateEvent = (Name2) => {
-
-        if(newDOB<0 || newDOB>Dates[newMonth]){
-          setErrors("Date Invalid!") ;
-        }
+    }
+    function message(){
+      alert(errors) ;
+    }
+    const updateEvent = (Name2) => {
+      if(newDOB<0 || newDOB>Dates[newMonth-1]){
+         alert("Date Invalid!") ;
+       }
         else{
           Axios.put('http://localhost:3001/api/update', {Name:Name2,DOB:newDOB,month:newMonth,
            Event:Event, Description: Description}).then((response)=>{
             if(response.data.message){
               setList([...List,{Name: Name , DOB: DOB , month:month , Event: Event, Description: Description}]) ;
-              setErrors(response.data.message) ;
+              alert(response.data.message) ;
               
             }
            }) ;              
           
           setNewDOB("") ; setNewMonth("") ;
         }
-        message() ;
         
       }
       function getMonth( num){
         var num1 = "1" ;
           return Months[num-1] ;
       }
-      function message(){
-        alert(errors) ;
-      }
+      
     return (
         <>
        
@@ -80,11 +75,11 @@ const Lists = () => {
             
             <br></br>
            <div class="input-grp">
-           <select class="form-control" id="exampleFormControlSelect1" onChange={(e)=>{setNewMonth(e.target.value)}} default=" " >
-            <option value="1">January</option><option value="2">February</option><option value="3">March</option><option value="4">April</option><option value="5">May</option> <option value="6">June</option>
+           <select class="form-control" placeholder="Date" id="exampleFormControlSelect1" onChange={(e)=>{setNewMonth(e.target.value)}} default=" " >
+           <option selected>Month</option><option value="1">January</option><option value="2">February</option><option value="3">March</option><option value="4">April</option><option value="5">May</option> <option value="6">June</option>
             <option value="7">July</option><option value="8">August</option><option value="9">September</option><option value="10">October</option><option value="11">November</option> <option value="12">December</option>
           </select>
-          <input type="number" min="0" max="31" onChange={(e)=>{setNewDOB(e.target.value)}} />
+          <input type="number" placeholder="Date" min="0" max="31" id="monthinp" onChange={(e)=>{setNewDOB(e.target.value)}} />
 
           <br></br>
             
@@ -95,6 +90,7 @@ const Lists = () => {
             <button id="update" className="btn btn-primary btn-md" onClick={() => updateEvent(val.Name)}>Update☑</button> 
             <button className="btn btn-danger btn-md" id="button" onClick={() => {deleteEvent(val.Name)}}>Delete🗑</button>
             </div>
+            <p>{errors}</p>
             </div>
             </div>
            

@@ -33,9 +33,9 @@ const Footer = () => {
     	<div class="col-md-3">
     		<h4>Follow Us</h4>
             <ul class="social-network social-circle">
-            <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" icon="github" iconColor="rgba(255,255,255,1)" backgroundColor="black" url="https://github.com/disha4091" size="45" /> 
-            <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" icon="linkedin" iconColor="rgba(255,255,255,1)" backgroundColor="black" url="https://www.linkedin.com/in/disha-chavan-999247200" size="48" />
-            <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" icon="instagram" iconColor="rgba(255,255,255,1)" backgroundColor="black" url="https://www.instagram.com/disha_827" size="48" />
+            <SocialMediaIconsReact className="sicons" borderColor="rgba(0,0,0,0.25)" icon="github" iconColor="rgba(255,255,255,1)" backgroundColor="black" url="https://github.com/disha4091" size="45" /> .    
+            <SocialMediaIconsReact className="sicons" borderColor="rgba(0,0,0,0.25)" icon="linkedin" iconColor="rgba(255,255,255,1)" backgroundColor="black" url="https://www.linkedin.com/in/disha-chavan-999247200" size="45" /> .
+            <SocialMediaIconsReact className="sicons" borderColor="rgba(0,0,0,0.25)" icon="instagram" iconColor="rgba(255,255,255,1)" backgroundColor="black" url="https://www.instagram.com/disha_827" size="45" />
 
             </ul>				
 		</div>

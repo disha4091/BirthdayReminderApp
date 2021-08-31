@@ -1,7 +1,8 @@
 .nav {
   height: 50px;
   width: 100%;
-  background-color: #4a7b9d;
+  background: -webkit-linear-gradient(59deg, #4a7b9d, #16222a);
+  background: linear-gradient(59deg, #4a7b9d, #16222a);
   position: relative;
   margin-bottom: 10vh;
 }
@@ -59,7 +60,8 @@
   }
   .nav > .nav-btn > label:hover,
   .nav #nav-check:checked ~ .nav-btn > label {
-    background-color: #4a7b9d;
+    background: -webkit-linear-gradient(59deg, #4a7b9d, #16222a);
+    background: linear-gradient(59deg, #4a7b9d, #16222a);
   }
   .nav > .nav-btn > label > span {
     display: block;
@@ -71,7 +73,8 @@
     position: absolute;
     display: block;
     width: 100%;
-    background-color: #4a7b9d;
+    background: -webkit-linear-gradient(59deg, #4a7b9d, #16222a);
+    background: linear-gradient(59deg, #4a7b9d, #16222a);
     transition: all 0.3s ease-in;
     overflow-y: hidden;
     top: 50px;

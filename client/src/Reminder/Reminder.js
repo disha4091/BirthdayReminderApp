@@ -43,7 +43,7 @@ const Reminder = () => {
     return (
         <section>
         <div className="Reminder">
-        <h1 className="heading">Events today</h1> 
+        <div className="heading1">Today's events!</div>
           <CheckBday/>
           
         </div>

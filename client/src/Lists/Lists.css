@@ -1,6 +1,6 @@
 .Heading {
   margin-top: 1rem;
-  background-color: #074749;
+  background-color: #cca5ec;
   border-radius: 5rem;
   text-align: center;
   height: max-content;
@@ -15,11 +15,12 @@
   display: flex;
   padding: 1rem;
   border-radius: 1rem;
-  background-image: linear-gradient(#52b880, #7cdfa9);
+  background-image: linear-gradient(rgb(214, 220, 236), #a0f4ff);
   margin: 2vh;
 }
 #card input {
   outline: none;
+  padding: 1rem;
   border-radius: 0.2rem;
   width: 10rem;
 }
@@ -41,8 +42,12 @@ button {
   margin: 10px;
   display: inline-block;
 }
-#input {
-  width: 50%;
+.input-group {
+  display: inline;
+}
+#monthinp {
+  width: 15vw;
+  height: 4vh;
   border: none;
   margin: 0.1rem;
 }
@@ -57,6 +62,11 @@ button {
 #lists {
   padding: auto;
 }
+.card select {
+  width: 15vw;
+  height: 4vh;
+}
+
 @media (max-width: 600px) {
 }
 

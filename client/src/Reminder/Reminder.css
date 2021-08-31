@@ -25,3 +25,14 @@
 .right {
   float: right;
 }
+
+.heading1 {
+  text-align: center;
+  font-size: 2.5vw;
+}
+@media (max-width: 600px) {
+  .heading1 {
+    text-align: center;
+    font-size: 6vw;
+  }
+}

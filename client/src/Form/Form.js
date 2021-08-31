@@ -19,9 +19,10 @@ const Form = () => {
         })
       },[DOBList]) ;
     
+   
     const submitInfo = () =>{
 
-        if(DOB<0 || DOB>Dates[month]){
+        if(DOB<0 || DOB>Dates[month-1]){
           setErrors("Date Invalid!") ;
         }
         else{;
@@ -59,7 +60,7 @@ const Form = () => {
             <br></br>
             <label>Month </label>
             <select class="form-control" id="exampleFormControlSelect1" value={month}  onChange={(e)=>{setMonth(e.target.value)}} default=" " >
-            <option value="1">January</option><option value="2">February</option><option value="3">March</option><option value="4">April</option><option value="5">May</option> <option value="6">June</option>
+            <option selected> </option><option value="1">January</option><option value="2">February</option><option value="3">March</option><option value="4">April</option><option value="5">May</option> <option value="6">June</option>
             <option value="7">July</option><option value="8">August</option><option value="9">September</option><option value="10">October</option><option value="11">November</option> <option value="12">December</option>
           </select>
             <br></br>
