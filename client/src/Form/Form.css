@@ -1,17 +1,26 @@
 .Form {
+  box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.24),
+    0 17px 40px 0 rgba(0, 0, 0, 0.19);
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: max-content;
   background-color: lavenderblush;
   text-align-last: center;
-  font-family: cursive;
   padding: 1.5rem 2rem;
   box-shadow: lightpink;
   border-width: 50px;
   border-color: solid black;
 }
 .Form input {
+  box-sizing: border-box;
+  float: right;
+  width: 200px;
+  background-color: rgb(224, 215, 235);
+  border-color: currentColor;
+  border-radius: 5px;
+}
+.Form select {
   box-sizing: border-box;
   float: right;
   width: 200px;
@@ -26,7 +35,6 @@
 .Form button {
   border-radius: 5px;
   background-color: rgb(183, 233, 216);
-  font-family: cursive;
   font-size: 20px;
   cursor: pointer;
 }

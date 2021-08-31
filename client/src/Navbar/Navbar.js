@@ -36,48 +36,65 @@ const Navbar = () => {
     logout() ;
     
   }
-  const menu = user ? (<div className="Navbar">
-
-      <div className="leftside">
-
-        <div className="links">
-          <a>{user.Username}</a>
-          <a href="/">Home</a>
-          <a href="/lists">Birthdays</a>
-          <a href="/reminder">Reminders</a>
-          <a href="/form">Add</a>
-          <a href="/profile">Profile</a>
-          <a onClick={onLogout}>Logout</a>
-
-
-        </div>
-
-        <div>
-
-        </div>
-
+  const menu = user ? (
+    
+    <div class="nav">
+  <input type="checkbox" id="nav-check"/>
+  <div class="nav-header">
+    <div class="nav-title">
+      JoGeek
     </div>
+  </div>
+  <div class="nav-btn">
+    <label for="nav-check">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+  </div>
+  
+  <div class="nav-links">
+  <a href="/">Home</a>
+  <a href="/lists">Birthdays</a>
+  <a href="/reminder">Reminders</a>
+  <a href="/form">Add</a>
+  <a href="/" onClick={onLogout}>Logout</a>
 
   </div>
-  ) : (<div className="Navbar">
-  <AuthProvider>
-    <Router>
+</div>
+   
+  ) : (
+    <div class="nav">
+  <input type="checkbox" id="nav-check"/>
+  <div class="nav-header">
+    <div class="nav-title">
+      📆RemindMe
+    </div>
+  </div>
+  <div class="nav-btn">
+    <label for="nav-check">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+  </div>
+  
+  <div class="nav-links">
+  <a href="/login" >Login</a>
+  <a href="/">Home</a>
 
-      <div className="leftside">
-
-        <div className="links">
-          <a href="/login" >Login</a>
-          <a href="/">Home</a>
-          <p></p>
-        </div>
-
-      </div>
-
-    </Router>
-    </AuthProvider>
-  </div>);
+  </div>
+</div>
+);
+  const myFunction =()=> {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
+    }
+  }
   return (
-
     menu
 
   )

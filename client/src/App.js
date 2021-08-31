@@ -9,7 +9,8 @@ import Lists from "../src/Lists/Lists";
 import Reminder from "../src/Reminder/Reminder";
 import HomePage from "../src/HomePage/HomePage";
 import Profile from "./Profile";
-
+import Footer from "./Footer/Footer" ;
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css' ;
 function App() {
   const { user, logout } = useContext(AuthContext); 
   var today = new Date(),
@@ -21,7 +22,7 @@ function App() {
       <div className="App">
         <AuthProvider>
           <Router>
-            <Navbar />
+            <Navbar/>
             <Switch>
               <Route exact path="/" component={HomePage} />
               <Route path="/login" component={LoginPage} />
@@ -30,6 +31,7 @@ function App() {
               <Route path="/reminder" component={Reminder} />
               <Route path="/profile" component={Profile} />
             </Switch>
+            <Footer/>
           </Router>
         </AuthProvider>
       </div>

@@ -39,15 +39,26 @@ const con = mysql.createConnection(db);
 app.post("/register", (req, res) => {
     const Username = req.body.Username;
     const Password = req.body.Password;
-    const sqlInsert = "INSERT INTO `users` (Username,Password) VALUES (?, ?)";
-    bcrypt.hash(Password, saltRounds, (err, hash) => {
-        if (err) {
-            console.log(err);
+    const sqlSearch = "SELECT * FROM `users` WHERE Username = ?" ;
+    con.query(sqlSearch, Username, (err, result)=>{
+        if (err) { res.send({ err: err }); }
+        if (result.length == 0) {
+            const sqlInsert = "INSERT INTO `users` (Username,Password) VALUES (?, ?)";
+            bcrypt.hash(Password, saltRounds, (err, hash) => {
+                if (err) {
+                    console.log(err);
+                }
+                con.query(sqlInsert, [Username, hash], (err, result) => {
+                    res.json({ message:"Registered successfully! Please sign in"}) ;
+                })
+            })
         }
-        con.query(sqlInsert, [Username, hash], (err, result) => {
-            console.log(err);
-        })
+        else {
+            res.json({ message: "Username already exists" });
+        }
+
     })
+
 
 
 })
@@ -127,10 +138,16 @@ app.post("/api/insert", (req, res) => {
     const Username = req.session.Username;
     const Event = req.body.Event ;
     const Description = req.body.Description ;
-    const sqlInsert = "INSERT INTO `birthdays` (Name , DOB , month , Username, Event, Description) VALUES (?, ? , ? , ?, ?, ?)";
-    con.query(sqlInsert, [Name, DOB, month, currUser, Event, Description], (err, result) => {
-        console.log(err);
+    if(Name.length === 0 || DOB.length === 0 || Event.length === 0 || Description.length === 0 || month.length === 0){
+        res.json({message: "Please enter valid data"}) ;
+    }
+    else{
+        const sqlInsert = "INSERT INTO `birthdays` (Name , DOB , month , Username, Event, Description) VALUES (?, ? , ? , ?, ?, ?)";
+        con.query(sqlInsert, [Name, DOB, month, currUser, Event, Description], (err, result) => {
+        res.json({message:"Event added successfully!"})
     })
+    }
+    
 
 });
 
@@ -151,10 +168,17 @@ app.put("/api/update", (req, res) => {
     const name = req.body.Name;
     const dob = req.body.DOB;
     const month = req.body.month;
-    const sqlUpdate = "UPDATE `birthdays` SET  DOB = ?,month = ? WHERE Name = ? AND Username = ?";
-    con.query(sqlUpdate, [dob, month, name, currUser], (err, result) => {
+    if(dob.length === 0 || month.length === 0){
+        res.json({message: "Please enter valid data"}) ;
+    }
+    else{
+        const sqlUpdate = "UPDATE `birthdays` SET  DOB = ?,month = ? WHERE Name = ? AND Username = ?";
+        con.query(sqlUpdate, [dob, month, name, currUser], (err, result) => {
         if (err) console.log(err);
+        res.json({message:"Date updated successfully!"})
     })
+    }
+    
 
 });
 /*app.get("/",(req,res)=>{

@@ -19,11 +19,7 @@
   width: max-content;
   font-size: 20px;
 }
-.grid-container input {
-  background-color: beige;
-  border-color: currentColor;
-  width: 80px;
-}
+
 body {
   background-color: rgb(214, 226, 214);
   font-family: cursive;

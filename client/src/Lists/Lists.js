@@ -1,9 +1,9 @@
 import React from "react" ;
-
+import Months from "../Months" ;
 import {useState, useEffect} from "react" ;
 import Axios from "axios" ;
-import '../Styles.css' ;
-
+import './Lists.css' ;
+import Dates from '../Validations' ;
 
 const Lists = () => {
     const [Name,setName] = useState("") ;
@@ -14,7 +14,7 @@ const Lists = () => {
     const [List, setList] = useState([]) ;
     const [newDOB , setNewDOB] = useState("") ;
     const [newMonth , setNewMonth] = useState("") ;
-
+    const [errors, setErrors]= useState("") ;
     useEffect(()=>{
       
         Axios.get('http://localhost:3001/api/get').then((response) =>{
@@ -25,83 +25,90 @@ const Lists = () => {
       
     
       const deleteEvent = (Name1) => {
-        Axios.delete(`http://localhost:3001/api/delete/${Name1}`) ;
-        alert(`Are you sure you want to delete ${Name1}` ) ;        
-        setList([...List,{Name: Name , DOB: DOB , month:month, Event: Event, Description: Description}]) ;
-
+        if(window.confirm(`Are you sure you want to delete ${Name1}` )){
+          Axios.delete(`http://localhost:3001/api/delete/${Name1}`) ;
+          setList([...List,{Name: Name , DOB: DOB , month:month, Event: Event, Description: Description}]) ;
+        }
       }
     
       const updateEvent = (Name2) => {
-        Axios.put('http://localhost:3001/api/update', {Name:Name2,DOB:newDOB,month:newMonth, Event:Event, Description: Description}) ;              
-        setList([...List,{Name: Name , DOB: DOB , month:month , Event: Event, Description: Description}]) ;
-        setNewDOB("") ; setNewMonth("") ;
+
+        if(newDOB<0 || newDOB>Dates[newMonth]){
+          setErrors("Date Invalid!") ;
+        }
+        else{
+          Axios.put('http://localhost:3001/api/update', {Name:Name2,DOB:newDOB,month:newMonth,
+           Event:Event, Description: Description}).then((response)=>{
+            if(response.data.message){
+              setList([...List,{Name: Name , DOB: DOB , month:month , Event: Event, Description: Description}]) ;
+              setErrors(response.data.message) ;
+              
+            }
+           }) ;              
+          
+          setNewDOB("") ; setNewMonth("") ;
+        }
+        message() ;
         
+      }
+      function getMonth( num){
+        var num1 = "1" ;
+          return Months[num-1] ;
+      }
+      function message(){
+        alert(errors) ;
       }
     return (
         <>
        
-        <div className="Container">
+        <div className="container" id="lists">
         <div className="Heading">
-        <h2>🎂🎈Events!🎂🎈</h2>
+        <h2>Events!</h2>
         </div>
-        <div className="grid-container">
-        {List.map((val)=>{
-            return (
-              <div class="card">
-              <div class="ui card">
-  <div class="content">
-    <div class="header">Project Timeline</div>
-  </div>
-  <div class="content">
-    <h4 class="ui sub header">Activity</h4>
-    <div class="ui small feed">
-      <div class="event">
-        <div class="content">
-          <div class="summary">
-             <a>Elliot Fu</a> added <a>Jenny Hess</a> to the project
-          </div>
-        </div>
+
+        {(List.length > 0) ? 
+          <div className="card-group">
+          {List.map((val)=>{
+          return (                      
+            <div >
+            <div className="card"  id="card" >
+            <h1 class="card-title">{val.Event}</h1>
+
+            <h2 class="card-subtitle mb-2 text-muted" id="left">{val.Name}</h2>
+            <h3 class="card-subtitle mb-2 text-muted" id="right">{val.DOB} {getMonth(val.month)}</h3>
+            <h3 class="card-text">{val.Description}</h3>
+            
+            <br></br>
+           <div class="input-grp">
+           <select class="form-control" id="exampleFormControlSelect1" onChange={(e)=>{setNewMonth(e.target.value)}} default=" " >
+            <option value="1">January</option><option value="2">February</option><option value="3">March</option><option value="4">April</option><option value="5">May</option> <option value="6">June</option>
+            <option value="7">July</option><option value="8">August</option><option value="9">September</option><option value="10">October</option><option value="11">November</option> <option value="12">December</option>
+          </select>
+          <input type="number" min="0" max="31" onChange={(e)=>{setNewDOB(e.target.value)}} />
+
+          <br></br>
+            
+           </div>
+            
+            <br></br>
+            <div class="btn-group">
+            <button id="update" className="btn btn-primary btn-md" onClick={() => updateEvent(val.Name)}>Update☑</button> 
+            <button className="btn btn-danger btn-md" id="button" onClick={() => {deleteEvent(val.Name)}}>Delete🗑</button>
+            </div>
+            </div>
+            </div>
+           
+    
+            
+            )
+        })}
+      </div>:
+      <div  className="emptyList">
+        <p>You do not have any events! Click to add <a href="/form">here</a></p>
       </div>
-      <div class="event">
-        <div class="content">
-          <div class="summary">
-             <a>Stevie Feliciano</a> was added as an <a>Administrator</a>
-          </div>
+        }
+  
         </div>
-      </div>
-      <div class="event">
-        <div class="content">
-          <div class="summary">
-             <a>Helen Troy</a> added two pictures
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="extra content">
-    <button class="ui button">Join Project</button>
-  </div>
-</div>
-              <div class="card-body">
-              <h4 class="card-title">{val.Event}</h4>
-              <h5 class="card-subtitle mb-2 text-muted">{val.Name}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">{val.DOB}/{val.month}</h6>
-              <p class="card-text">{val.Description}</p>
-              <button classname="buttonList" onClick={() => {deleteEvent(val.Name)}}>Delete🗑</button>
-              <br></br>
-              <input placeholder="Enter date! " type="text" onChange={(e)=>{
-                setNewDOB(e.target.value)
-              }}></input>
-              <input placeholder="Enter month! " type="text" onChange={(e)=>{
-                setNewMonth(e.target.value)
-              }}></input>
-              <button classname="buttonList" onClick={() => updateEvent(val.Name)}>Update☑</button>
-              </div>
-              </div>)
-          })}
-        </div>
-        </div>
-        
         </>
     )
 }

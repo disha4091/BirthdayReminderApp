@@ -29,12 +29,12 @@ const Reminder = () => {
 
     const CheckBday = () => {
       if(tempBDay.length === 0 ){
-        return(<p className="person">No Birthdays today!</p>) ;
+        return(<p className="person">No events today!</p>) ;
     }
       else{
         return(
           tempBDay.map((val)=>{
-            return (<div key= {val.id} className="person">🎁{val.Name}</div>);
+            return (<div key= {val.id} className="person"><div className="left"><h2>{val.Name}</h2><p>{val.Event} <p className="right">{val.Description}</p></p></div></div>);
           })
         ) ;
         
@@ -43,7 +43,7 @@ const Reminder = () => {
     return (
         <section>
         <div className="Reminder">
-        <div className="heading">Todays birthdays</div> 
+        <h1 className="heading">Events today</h1> 
           <CheckBday/>
           
         </div>

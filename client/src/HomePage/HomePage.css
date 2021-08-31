@@ -1,41 +1,91 @@
-.container {
-  position: absolute;
-  width: 70%;
-  left: 15%;
+.first {
+  width: 100%;
+  height: 80vh;
+  background-color: rgb(120, 216, 240);
+  background-image: url(./backgr.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 5%;
 }
 
-.image {
-  margin: auto;
-  opacity: 1;
-  display: block;
-  width: 80%;
-  height: auto;
-  transition: 0.5s ease;
-  backface-visibility: hidden;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+.firstL {
+  box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.24),
+    0 17px 40px 0 rgba(0, 0, 0, 0.19);
+  color: rgb(230, 231, 238);
+  float: left;
+  width: 40%;
+  height: 80%;
+  margin: 5%;
+  position: relative;
+  text-align: center;
+  padding: 2vh;
+  vertical-align: middle;
+  line-height: 10vh;
+  font-size: 7vh;
+  background-color: rgb(97, 140, 151);
+}
+.firstR {
+  float: right;
+  margin-left: 40%;
+  color: rgb(15, 60, 99);
+  font-size: 10vh;
 }
 
-.middle {
-  transition: 0.5s ease;
-  opacity: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
+.second {
+  width: 100%;
+  height: 80vh;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
+  grid-column-gap: 10px;
+  margin-top: 8rem;
+  background-color: rgb(228, 233, 235);
+
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.secondB {
+  width: 33%;
+  background-color: red;
 }
 
-.container:hover .image {
-  opacity: 0.3;
+.card-group {
+  margin-left: 2vw;
 }
 
-.container:hover .middle {
-  opacity: 1;
+.card-group img:hover {
+  transform: scale(1.2);
 }
 
-.text {
-  background-color: transparent;
-  color: rgb(34, 4, 4);
-  font-size: 25px;
-  padding: 16px 32px;
+.heading {
+  color: rgb(15, 60, 99);
+  width: max-content;
+  padding: 4px;
+  font-size: 7vh;
+  margin-left: 5vw;
+  margin-top: 5rem;
+}
+#third {
+  background-color: rgb(161, 192, 206);
+  height: max-content;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+}
+.thirdR {
+  float: right;
+  margin-left: 100%;
+  color: rgb(15, 60, 99);
+  font-size: 10vh;
+}
+.thirdL {
+  height: 10vh;
+  float: left;
+  margin-right: 0;
+  color: rgb(15, 60, 99);
+  font-size: 5vh;
+}
+
+.fourth {
+  margin-top: 10vh;
+  margin-left: 30%;
 }
